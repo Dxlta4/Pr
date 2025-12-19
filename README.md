@@ -6,11 +6,9 @@
 
 ## 2. Используемые инструменты и среда
 
-* Операционная система: Windows
+* Операционная система: Ubuntu 22.04
 * Инструмент шифрования: **Age**
 * Инструмент управления секретами: **SOPS**
-* Текстовый редактор: Notepad
-* Командная оболочка: PowerShell
 
 ## 3. Подготовка окружения
 
@@ -22,6 +20,7 @@
 age --version
 sops --version
 ```
+<img width="310" height="40" alt="image" src="https://github.com/user-attachments/assets/a356163d-480c-45c8-a387-236389daf9b9" />
 
 ## 4. Генерация ключей Age
 
@@ -30,7 +29,8 @@ sops --version
 ```
 age-keygen -o keys.txt
 ```
-<img width="732" height="66" alt="image" src="https://github.com/user-attachments/assets/9922b3b8-5ef4-4b8e-8590-4fa652ef485d" />
+<img width="753" height="36" alt="image" src="https://github.com/user-attachments/assets/188918bb-506a-47dc-b8ff-af454f2aa1f0" />
+
 
 В результате был создан файл `keys.txt`, содержащий приватный ключ, а также выведен публичный ключ, который используется для шифрования данных.
 
@@ -43,7 +43,8 @@ creation_rules:
   - path_regex: 'secrets\\.*\.yaml$'
     age: 'age1...'
 ```
-<img width="669" height="253" alt="image" src="https://github.com/user-attachments/assets/c3dd70a6-5ed2-4508-b004-9a8d7f62aba6" />
+<img width="664" height="164" alt="image" src="https://github.com/user-attachments/assets/3ceb272f-5169-4aee-9665-d3dcdbdeb22b" />
+
 
 Правило указывает, что все YAML-файлы в каталоге `secrets` должны автоматически шифроваться с использованием указанного публичного ключа Age. Регулярное выражение адаптировано под файловую систему Windows.
 
@@ -54,7 +55,8 @@ creation_rules:
 ```
 sops --encrypt secrets\database.yaml > secrets\database.enc.yaml
 ```
-<img width="1113" height="505" alt="image" src="https://github.com/user-attachments/assets/00d394ca-6b92-42ed-8868-d3b9bef8e477" />
+<img width="876" height="662" alt="image" src="https://github.com/user-attachments/assets/15761eac-9643-4131-9cc2-fb7d4dce78be" />
+
 
 В результате был получен зашифрованный файл `database.enc.yaml`, содержащий зашифрованные значения и служебный блок `sops`.
 
@@ -71,17 +73,12 @@ $env:SOPS_AGE_KEY_FILE = "$PWD\keys.txt"
 ```
 sops --decrypt secrets\database.enc.yaml
 ```
-<img width="792" height="87" alt="image" src="https://github.com/user-attachments/assets/738b7d64-db42-4fd4-aec1-9b7bfdbc5743" />
+<img width="804" height="118" alt="image" src="https://github.com/user-attachments/assets/4565560c-e6a0-4dda-b635-b50ccb802d46" />
+
 
 Данные были успешно восстановлены в исходном виде.
 
 ## 8. Редактирование зашифрованных файлов
-
-При попытке редактирования файла возникла ошибка, связанная с отсутствием редактора. Для её устранения был задан редактор через переменную окружения:
-
-```
-$env:SOPS_EDITOR = "notepad"
-```
 
 После этого команда:
 
@@ -91,9 +88,7 @@ sops secrets\database.enc.yaml
 
 позволила открыть файл в расшифрованном виде, внести изменения и автоматически сохранить его в зашифрованном состоянии.
 
-<img width="669" height="54" alt="image" src="https://github.com/user-attachments/assets/2b17ebe5-5a74-4185-8ef2-e1dfce2b1566" />
-
-<img width="873" height="359" alt="image" src="https://github.com/user-attachments/assets/4c874b80-10b8-4507-abce-7f3e0f576690" />
+<img width="889" height="184" alt="image" src="https://github.com/user-attachments/assets/2828b433-8e2a-48dc-a698-59910af5318c" />
 
 ## 9. Вывод
 
